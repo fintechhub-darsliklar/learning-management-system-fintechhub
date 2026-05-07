@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from rest_framework_simplejwt.tokens import RefreshToken
 import uuid
 
 # Create your models here.
@@ -49,6 +50,13 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['first_name']
 
     objects = CustomUserManager()
+
+    def token(self):
+        refresh = RefreshToken.for_user(self)
+        return {
+            "access":str(refresh.access_token),
+            "refresh_token":str(refresh)
+        }
 
     def __str__(self):
         return f"{self.email}"
