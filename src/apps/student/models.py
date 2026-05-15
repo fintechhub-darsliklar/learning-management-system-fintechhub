@@ -29,7 +29,7 @@ class Student(BaseModel):
     total_ball = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.user
+        return self.user.first_name
     
 
 
